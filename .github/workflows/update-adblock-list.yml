@@ -1,1 +1,57 @@
+name: Update Ad Blocking list
 
+on:
+  schedule:
+    - cron: "23 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: adblock-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Download upstream hosts lists
+        run: |
+          mkdir -p .adblock-input public/adblock
+          curl --fail --silent --show-error --location \
+            --proto '=https' --proto-redir '=https' \
+            --connect-timeout 10 --max-time 45 --max-filesize 5242880 \
+            https://raw.githubusercontent.com/AdAway/adaway.github.io/master/hosts.txt \
+            --output .adblock-input/adaway.txt
+          curl --fail --silent --show-error --location \
+            --proto '=https' --proto-redir '=https' \
+            --connect-timeout 10 --max-time 45 --max-filesize 5242880 \
+            https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts \
+            --output .adblock-input/stevenblack.txt
+      - name: Validate and build compact artifact
+        run: |
+          python tools/adblock/build_blocklist.py \
+            .adblock-input public/adblock \
+            --min-domains 1000 --max-domains 250000
+      - name: Publish GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-24.04
+    needs: build
+    steps:
+      - name: Deploy static blocklist
+        id: deployment
+        uses: actions/deploy-pages@v4
