@@ -22,19 +22,59 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Download upstream hosts lists
+      - name: Download upstream adblock lists
         run: |
           mkdir -p .adblock-input public/adblock
           curl --fail --silent --show-error --location \
             --proto '=https' --proto-redir '=https' \
-            --connect-timeout 10 --max-time 45 --max-filesize 5242880 \
+            --connect-timeout 10 --max-time 45 --max-filesize 20971520 \
             https://raw.githubusercontent.com/AdAway/adaway.github.io/master/hosts.txt \
             --output .adblock-input/adaway.txt
           curl --fail --silent --show-error --location \
             --proto '=https' --proto-redir '=https' \
-            --connect-timeout 10 --max-time 45 --max-filesize 5242880 \
+            --connect-timeout 10 --max-time 45 --max-filesize 20971520 \
+            'https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext' \
+            --output .adblock-input/yoyo.txt
+          curl --fail --silent --show-error --location \
+            --proto '=https' --proto-redir '=https' \
+            --connect-timeout 10 --max-time 45 --max-filesize 20971520 \
             https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts \
             --output .adblock-input/stevenblack.txt
+          curl --fail --silent --show-error --location \
+            --proto '=https' --proto-redir '=https' \
+            --connect-timeout 10 --max-time 45 --max-filesize 20971520 \
+            https://ublockorigin.github.io/uAssets/filters/filters.txt \
+            --output .adblock-input/ublock-filters.txt
+          curl --fail --silent --show-error --location \
+            --proto '=https' --proto-redir '=https' \
+            --connect-timeout 10 --max-time 45 --max-filesize 20971520 \
+            https://ublockorigin.github.io/uAssets/filters/badware.txt \
+            --output .adblock-input/ublock-badware.txt
+          curl --fail --silent --show-error --location \
+            --proto '=https' --proto-redir '=https' \
+            --connect-timeout 10 --max-time 45 --max-filesize 20971520 \
+            https://ublockorigin.github.io/uAssets/filters/privacy.txt \
+            --output .adblock-input/ublock-privacy.txt
+          curl --fail --silent --show-error --location \
+            --proto '=https' --proto-redir '=https' \
+            --connect-timeout 10 --max-time 45 --max-filesize 20971520 \
+            https://ublockorigin.github.io/uAssets/filters/quick-fixes.txt \
+            --output .adblock-input/ublock-quick-fixes.txt
+          curl --fail --silent --show-error --location \
+            --proto '=https' --proto-redir '=https' \
+            --connect-timeout 10 --max-time 45 --max-filesize 20971520 \
+            https://ublockorigin.github.io/uAssets/filters/resource-abuse.txt \
+            --output .adblock-input/ublock-resource-abuse.txt
+          curl --fail --silent --show-error --location \
+            --proto '=https' --proto-redir '=https' \
+            --connect-timeout 10 --max-time 45 --max-filesize 20971520 \
+            https://easylist.to/easylist/easylist.txt \
+            --output .adblock-input/easylist.txt
+          curl --fail --silent --show-error --location \
+            --proto '=https' --proto-redir '=https' \
+            --connect-timeout 10 --max-time 45 --max-filesize 20971520 \
+            https://easylist.to/easylist/easyprivacy.txt \
+            --output .adblock-input/easyprivacy.txt
       - name: Validate and build compact artifact
         run: |
           python tools/adblock/build_blocklist.py \

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the compact Vantange VPN hosts hash artifact and manifest."""
+"""Build the compact 0x VPN hosts hash artifact and manifest."""
 
 from __future__ import annotations
 
@@ -14,12 +14,34 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 MAGIC = b"VADBLK1\n"
-SOURCE_URLS = (
-    "https://raw.githubusercontent.com/AdAway/adaway.github.io/master/hosts.txt",
-    "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts",
+SOURCE_FILES = (
+    ("adaway.txt", "https://raw.githubusercontent.com/AdAway/adaway.github.io/master/hosts.txt"),
+    ("yoyo.txt", "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext"),
+    ("stevenblack.txt", "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"),
+    ("ublock-filters.txt", "https://ublockorigin.github.io/uAssets/filters/filters.txt"),
+    ("ublock-badware.txt", "https://ublockorigin.github.io/uAssets/filters/badware.txt"),
+    ("ublock-privacy.txt", "https://ublockorigin.github.io/uAssets/filters/privacy.txt"),
+    ("ublock-quick-fixes.txt", "https://ublockorigin.github.io/uAssets/filters/quick-fixes.txt"),
+    ("ublock-resource-abuse.txt", "https://ublockorigin.github.io/uAssets/filters/resource-abuse.txt"),
+    ("easylist.txt", "https://easylist.to/easylist/easylist.txt"),
+    ("easyprivacy.txt", "https://easylist.to/easylist/easyprivacy.txt"),
 )
-MAX_INPUT_BYTES = 5 * 1024 * 1024
+SOURCE_URLS = tuple(url for _, url in SOURCE_FILES)
+EXPECTED_INPUT_NAMES = {name for name, _ in SOURCE_FILES}
+FILTER_INPUT_NAMES = {
+    "ublock-filters.txt",
+    "ublock-badware.txt",
+    "ublock-privacy.txt",
+    "ublock-quick-fixes.txt",
+    "ublock-resource-abuse.txt",
+    "easylist.txt",
+    "easyprivacy.txt",
+}
+MAX_INPUT_BYTES = 20 * 1024 * 1024
 DOMAIN_RE = re.compile(r"^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$")
+IGNORED_DOMAINS = {"localhost", "localhost.localdomain", "broadcasthost"}
+COSMETIC_FILTER_MARKERS = ("##", "#@#", "#?#", "#$#", "#%#")
+SAFE_FILTER_OPTIONS = {"3p", "third-party"}
 
 
 def normalize_domain(value: str) -> str:
@@ -33,15 +55,71 @@ def normalize_domain(value: str) -> str:
     return domain
 
 
-def parse_hosts_file(path: Path) -> set[str]:
+def is_ignored_domain(domain: str) -> bool:
+    return not domain or domain in IGNORED_DOMAINS
+
+
+def filter_options_are_dns_safe(options: str) -> bool:
+    if not options:
+        return True
+    for raw_option in options.split(","):
+        option = raw_option.strip().lower()
+        if not option:
+            continue
+        option = option.lstrip("~")
+        option = option.split("=", 1)[0]
+        if option not in SAFE_FILTER_OPTIONS:
+            return False
+    return True
+
+
+def parse_adblock_filter_line(value: str) -> str:
+    line = value.strip()
+    if not line or line.startswith(("!", "[", "@@")):
+        return ""
+    if any(marker in line for marker in COSMETIC_FILTER_MARKERS):
+        return ""
+    if "$" in line:
+        line, options = line.split("$", 1)
+        if not filter_options_are_dns_safe(options):
+            return ""
+        line = line.rstrip()
+    match = re.fullmatch(r"\|\|([A-Za-z0-9._-]+)\^?", line)
+    if not match:
+        return ""
+    domain = normalize_domain(match.group(1))
+    return "" if is_ignored_domain(domain) else domain
+
+
+def looks_like_adblock_filter_line(value: str) -> bool:
+    line = value.strip()
+    return (
+        not line
+        or line.startswith(("!", "[", "@@", "||", "|", "/"))
+        or any(marker in line for marker in COSMETIC_FILTER_MARKERS)
+    )
+
+
+def parse_source_file(path: Path) -> set[str]:
     if not path.is_file():
         raise ValueError(f"input does not exist: {path}")
     if path.stat().st_size <= 0 or path.stat().st_size > MAX_INPUT_BYTES:
         raise ValueError("input size is outside the allowed range")
+    mode = "filter" if path.name in FILTER_INPUT_NAMES else ("hosts" if path.name in EXPECTED_INPUT_NAMES else "mixed")
     domains: set[str] = set()
     with path.open("r", encoding="utf-8", errors="strict") as source:
         for raw_line in source:
-            line = raw_line.split("#", 1)[0].strip()
+            stripped = raw_line.strip()
+            if mode in {"filter", "mixed"}:
+                filter_domain = parse_adblock_filter_line(stripped)
+                if filter_domain:
+                    domains.add(filter_domain)
+                    continue
+                if looks_like_adblock_filter_line(stripped):
+                    continue
+            if mode == "filter":
+                continue
+            line = stripped.split("#", 1)[0].strip()
             if not line:
                 continue
             fields = line.split()
@@ -53,7 +131,7 @@ def parse_hosts_file(path: Path) -> set[str]:
                     candidates = fields
             for candidate in candidates:
                 domain = normalize_domain(candidate)
-                if domain and domain not in {"localhost", "localhost.localdomain", "broadcasthost"}:
+                if not is_ignored_domain(domain):
                     domains.add(domain)
     return domains
 
@@ -62,8 +140,9 @@ def parse_hosts(path: Path) -> tuple[set[str], str]:
     inputs = sorted(path.glob("*.txt")) if path.is_dir() else [path]
     if not inputs:
         raise ValueError("input directory contains no .txt files")
-    if path.is_dir() and {item.name for item in inputs} != {"adaway.txt", "stevenblack.txt"}:
-        raise ValueError("input directory must contain exactly adaway.txt and stevenblack.txt")
+    if path.is_dir() and {item.name for item in inputs} != EXPECTED_INPUT_NAMES:
+        expected = ", ".join(sorted(EXPECTED_INPUT_NAMES))
+        raise ValueError(f"input directory must contain exactly: {expected}")
     domains: set[str] = set()
     source_digest = hashlib.sha256()
     for item in inputs:
@@ -71,7 +150,7 @@ def parse_hosts(path: Path) -> tuple[set[str], str]:
         source_digest.update(item.name.encode("utf-8"))
         source_digest.update(b"\0")
         source_digest.update(hashlib.sha256(content).digest())
-        domains.update(parse_hosts_file(item))
+        domains.update(parse_source_file(item))
     return domains, source_digest.hexdigest()
 
 
