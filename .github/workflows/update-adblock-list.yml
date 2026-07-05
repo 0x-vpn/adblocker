@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/update-adblock-list.yml"
+      - "public/**"
       - "tools/adblock/build_blocklist.py"
   schedule:
     - cron: "23 */6 * * *"

@@ -1,0 +1,600 @@
+:root {
+  color-scheme: light;
+  --paper: #f7f3e8;
+  --paper-strong: #fffcf3;
+  --ink: #132120;
+  --muted: #5c6b68;
+  --line: #cadbd5;
+  --line-strong: #9bbcb3;
+  --teal: #007f78;
+  --teal-bright: #00a3a3;
+  --green: #49b86b;
+  --amber: #d89a38;
+  --blue: #246cbd;
+  --panel: rgba(255, 252, 243, 0.9);
+  --shadow: 0 22px 70px rgba(19, 33, 32, 0.13);
+  --max: 1120px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Aptos", "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+.site-shell {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(247, 243, 232, 0.9);
+  border-bottom: 1px solid rgba(202, 219, 213, 0.8);
+  backdrop-filter: blur(18px);
+}
+
+.nav {
+  width: min(var(--max), calc(100% - 32px));
+  min-height: 70px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.brand img {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+}
+
+.nav-links a:hover {
+  color: var(--ink);
+}
+
+.hero {
+  position: relative;
+  min-height: calc(88vh - 70px);
+  display: grid;
+  align-items: center;
+  isolation: isolate;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(90deg, rgba(247, 243, 232, 0.95) 0%, rgba(247, 243, 232, 0.86) 45%, rgba(247, 243, 232, 0.5) 100%),
+    url("world-dotted-atlas.png") center 44% / 1180px auto no-repeat;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: auto -10% -36% -10%;
+  height: 46%;
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(36, 108, 189, 0.16), rgba(0, 163, 163, 0.2), rgba(73, 184, 107, 0.18));
+  filter: blur(30px);
+  opacity: 0.9;
+}
+
+.hero-inner {
+  width: min(var(--max), calc(100% - 32px));
+  margin: 0 auto;
+  padding: 56px 0 62px;
+}
+
+.product-mark {
+  width: 88px;
+  height: 88px;
+  border-radius: 18px;
+  box-shadow: 0 18px 38px rgba(0, 127, 120, 0.24);
+}
+
+.eyebrow {
+  margin: 28px 0 12px;
+  color: var(--teal);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: "Georgia", "Times New Roman", serif;
+  letter-spacing: 0;
+  line-height: 1.02;
+}
+
+h1 {
+  max-width: 720px;
+  font-size: 4.4rem;
+  font-weight: 700;
+}
+
+.hero-copy {
+  max-width: 610px;
+  margin: 22px 0 0;
+  color: #31413f;
+  font-size: 1.2rem;
+}
+
+.hero-actions {
+  margin-top: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.button {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border: 1px solid var(--ink);
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 800;
+  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(19, 33, 32, 0.14);
+}
+
+.button.primary {
+  background: var(--ink);
+  color: var(--paper-strong);
+}
+
+.button.secondary {
+  background: rgba(255, 252, 243, 0.82);
+}
+
+.hero-proof {
+  width: min(var(--max), calc(100% - 32px));
+  margin: -36px auto 0;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  border: 1px solid var(--line);
+  background: var(--line);
+  box-shadow: var(--shadow);
+}
+
+.proof-item {
+  min-height: 116px;
+  padding: 22px;
+  background: var(--paper-strong);
+}
+
+.proof-item strong {
+  display: block;
+  font-size: 1.05rem;
+}
+
+.proof-item span {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.section {
+  width: min(var(--max), calc(100% - 32px));
+  margin: 0 auto;
+  padding: 86px 0;
+}
+
+.section-heading {
+  max-width: 720px;
+}
+
+.section-heading h2 {
+  font-size: 2.5rem;
+}
+
+.section-heading p {
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.feature-grid {
+  margin-top: 34px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.feature {
+  min-height: 210px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 252, 243, 0.72);
+}
+
+.feature .number,
+.policy-link .number {
+  color: var(--teal);
+  font-weight: 900;
+  font-size: 0.84rem;
+}
+
+.feature h3 {
+  margin-top: 18px;
+  font-size: 1.32rem;
+}
+
+.feature p {
+  margin: 12px 0 0;
+  color: var(--muted);
+}
+
+.wide-band {
+  background: #132120;
+  color: var(--paper-strong);
+  border: 0;
+}
+
+.wide-band .section {
+  display: grid;
+  grid-template-columns: 0.88fr 1.12fr;
+  gap: 42px;
+  align-items: center;
+}
+
+.app-visual {
+  position: relative;
+  min-height: 500px;
+  border: 1px solid rgba(217, 255, 249, 0.24);
+  border-radius: 8px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(217, 255, 249, 0.12), rgba(19, 33, 32, 0.2)),
+    url("world-dotted-atlas.png") center / 940px auto no-repeat;
+}
+
+.phone {
+  position: absolute;
+  right: 42px;
+  top: 42px;
+  width: min(310px, calc(100% - 84px));
+  min-height: 415px;
+  border: 1px solid rgba(217, 255, 249, 0.3);
+  border-radius: 8px;
+  background: rgba(247, 243, 232, 0.96);
+  color: var(--ink);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.32);
+}
+
+.phone-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid rgba(19, 33, 32, 0.1);
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--green);
+  box-shadow: 0 0 0 5px rgba(73, 184, 107, 0.15);
+}
+
+.orb {
+  width: 124px;
+  height: 124px;
+  margin: 34px auto 20px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  font-weight: 900;
+  background: radial-gradient(circle at 35% 30%, rgba(217, 255, 249, 0.9), rgba(0, 163, 163, 0.68) 48%, rgba(0, 127, 120, 0.86));
+  box-shadow: 0 22px 48px rgba(0, 127, 120, 0.35);
+}
+
+.phone-row {
+  margin: 10px 18px;
+  padding: 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(19, 33, 32, 0.08);
+  color: #31413f;
+}
+
+.phone-row strong {
+  color: var(--ink);
+}
+
+.dark-copy h2 {
+  font-size: 2.5rem;
+}
+
+.dark-copy p {
+  color: rgba(255, 252, 243, 0.72);
+}
+
+.check-list {
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 13px;
+}
+
+.check-list li {
+  padding-left: 26px;
+  position: relative;
+}
+
+.check-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.68em;
+  width: 12px;
+  height: 2px;
+  background: var(--teal-bright);
+}
+
+.policy-grid {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.policy-link {
+  display: block;
+  min-height: 150px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 252, 243, 0.78);
+  text-decoration: none;
+}
+
+.policy-link strong {
+  display: block;
+  margin-top: 18px;
+}
+
+.policy-link span {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.download-panel {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 28px;
+  align-items: center;
+  padding: 30px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper-strong);
+  box-shadow: var(--shadow);
+}
+
+.download-panel p {
+  margin: 10px 0 0;
+  color: var(--muted);
+}
+
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 32px 0;
+}
+
+.footer-inner {
+  width: min(var(--max), calc(100% - 32px));
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.legal-page {
+  width: min(850px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 72px 0 96px;
+}
+
+.legal-page h1 {
+  font-size: 3rem;
+}
+
+.legal-page h2 {
+  margin-top: 42px;
+  font-size: 1.6rem;
+}
+
+.legal-page p,
+.legal-page li {
+  color: #394947;
+}
+
+.legal-page ul {
+  padding-left: 20px;
+}
+
+.legal-meta {
+  margin-top: 18px;
+  color: var(--muted);
+}
+
+.notice {
+  margin-top: 24px;
+  padding: 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: rgba(0, 163, 163, 0.08);
+}
+
+.simple-list {
+  margin-top: 24px;
+  display: grid;
+  gap: 12px;
+}
+
+.simple-list a {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper-strong);
+  text-decoration: none;
+}
+
+@media (max-width: 860px) {
+  .nav {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 14px 0;
+    gap: 12px;
+  }
+
+  .nav-links {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .hero {
+    min-height: auto;
+  }
+
+  .hero-inner {
+    padding: 46px 0 70px;
+  }
+
+  h1 {
+    font-size: 3.1rem;
+  }
+
+  .hero-proof,
+  .feature-grid,
+  .policy-grid,
+  .wide-band .section,
+  .download-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-proof {
+    margin-top: 0;
+  }
+
+  .app-visual {
+    min-height: 430px;
+  }
+
+  .phone {
+    right: 24px;
+    top: 24px;
+    width: calc(100% - 48px);
+  }
+
+  .footer-inner {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 520px) {
+  body {
+    font-size: 15px;
+  }
+
+  h1,
+  .legal-page h1 {
+    font-size: 2.55rem;
+  }
+
+  .section-heading h2,
+  .dark-copy h2 {
+    font-size: 2rem;
+  }
+
+  .hero-copy {
+    font-size: 1rem;
+  }
+
+  .button {
+    width: 100%;
+  }
+
+  .section {
+    padding: 60px 0;
+  }
+
+  .product-mark {
+    width: 72px;
+    height: 72px;
+  }
+}

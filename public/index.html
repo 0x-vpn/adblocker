@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>0x VPN</title>
+    <meta name="description" content="0x VPN is an Android VPN app with recovery-key accounts, rewarded VPN minutes, optional DNS ad blocking, and privacy-conscious service design.">
+    <link rel="icon" href="assets/0x-vpn-icon.png">
+    <link rel="stylesheet" href="assets/site.css">
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="site-header">
+        <nav class="nav" aria-label="Main navigation">
+          <a class="brand" href="index.html">
+            <img src="assets/0x-vpn-icon.png" alt="" width="36" height="36">
+            <span>0x VPN</span>
+          </a>
+          <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#privacy">Privacy</a>
+            <a href="download.html">Download</a>
+            <a href="support.html">Support</a>
+          </div>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div class="hero-inner">
+            <img class="product-mark" src="assets/0x-vpn-icon.png" alt="0x VPN app icon" width="88" height="88">
+            <p class="eyebrow">Android VPN access with server-authorized minutes</p>
+            <h1>0x VPN</h1>
+            <p class="hero-copy">
+              Connect through an Android VPN tunnel, manage access with recovery-key accounts,
+              and use optional on-device DNS ad blocking for tunneled apps.
+            </p>
+            <div class="hero-actions" aria-label="Primary actions">
+              <a class="button primary" href="download.html">Get Android build</a>
+              <a class="button secondary" href="privacy.html">Read privacy policy</a>
+            </div>
+          </div>
+        </section>
+
+        <div class="hero-proof" aria-label="Service highlights">
+          <div class="proof-item">
+            <strong>Android VpnService</strong>
+            <span>VPN connection starts only after user action and Android approval.</span>
+          </div>
+          <div class="proof-item">
+            <strong>No traffic content logs</strong>
+            <span>No browsing history, full URLs, packet contents, or DNS query logs.</span>
+          </div>
+          <div class="proof-item">
+            <strong>Recovery-key accounts</strong>
+            <span>Username signup returns a one-time recovery key for account access.</span>
+          </div>
+          <div class="proof-item">
+            <strong>Optional DNS filtering</strong>
+            <span>Ad-blocking runs locally inside the VPN tunnel for protected apps.</span>
+          </div>
+        </div>
+
+        <section class="section" id="features">
+          <div class="section-heading">
+            <h2>Built around the VPN session, not a marketing tunnel.</h2>
+            <p>
+              The app keeps authentication, entitlements, profile delivery, rewards, and abuse review in
+              the backend while the public website stays static and free to host on GitHub Pages.
+            </p>
+          </div>
+          <div class="feature-grid">
+            <article class="feature">
+              <span class="number">01</span>
+              <h3>Server-authorized profile access</h3>
+              <p>VPN profiles are fetched only after account, location, country, entitlement, and rate-limit checks pass.</p>
+            </article>
+            <article class="feature">
+              <span class="number">02</span>
+              <h3>Rewarded VPN minutes</h3>
+              <p>Rewarded ads are optional and user-initiated. Minutes are granted after server-side verification.</p>
+            </article>
+            <article class="feature">
+              <span class="number">03</span>
+              <h3>App Tunnel mode</h3>
+              <p>Choose specific Android apps to route through the VPN while unselected apps stay on the normal network.</p>
+            </article>
+            <article class="feature">
+              <span class="number">04</span>
+              <h3>Optional ad blocking</h3>
+              <p>Compact DNS blocklists are validated, cached, and applied locally. HTTPS traffic is not decrypted.</p>
+            </article>
+            <article class="feature">
+              <span class="number">05</span>
+              <h3>Optional integrity evidence</h3>
+              <p>The backend can record device-integrity evidence when configured without shipping service credentials.</p>
+            </article>
+            <article class="feature">
+              <span class="number">06</span>
+              <h3>Static public website</h3>
+              <p>Public pages, legal docs, ad-block artifacts, and update manifests can be served from GitHub Pages.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="wide-band" aria-label="App preview">
+          <div class="section">
+            <div class="dark-copy">
+              <h2>A focused phone-first VPN client.</h2>
+              <p>
+                0x VPN keeps the customer surface direct: sign in, choose a location, confirm VPN approval,
+                connect, and spend only confirmed connected time from the account balance.
+              </p>
+              <ul class="check-list">
+                <li>Encrypted staged profile handling on device.</li>
+                <li>Foreground-service connection state drives the UI.</li>
+                <li>Account minutes reconcile with Supabase in the background.</li>
+                <li>Diagnostics are bounded and redacted.</li>
+              </ul>
+            </div>
+            <div class="app-visual" aria-label="0x VPN phone interface illustration">
+              <div class="phone">
+                <div class="phone-top">
+                  <strong>0x VPN</strong>
+                  <span class="status-dot" aria-label="Connected status"></span>
+                </div>
+                <div class="orb">0x</div>
+                <div class="phone-row"><span>Status</span><strong>Connected</strong></div>
+                <div class="phone-row"><span>Server</span><strong>Mumbai, India</strong></div>
+                <div class="phone-row"><span>VPN minutes</span><strong>180 left</strong></div>
+                <div class="phone-row"><span>Mode</span><strong>Full device</strong></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="privacy">
+          <div class="section-heading">
+            <h2>Public pages for direct distribution and users.</h2>
+            <p>
+              These pages are static, reachable without login, and designed to live beside the existing
+              GitHub Pages ad-block and direct-update artifacts.
+            </p>
+          </div>
+          <div class="policy-grid">
+            <a class="policy-link" href="privacy.html">
+              <span class="number">Privacy</span>
+              <strong>Data handling</strong>
+              <span>What the app processes and what it does not store.</span>
+            </a>
+            <a class="policy-link" href="terms.html">
+              <span class="number">Terms</span>
+              <strong>Service rules</strong>
+              <span>Acceptable use, rewards, ad blocking, and updates.</span>
+            </a>
+            <a class="policy-link" href="support.html">
+              <span class="number">Support</span>
+              <strong>Help and contact</strong>
+              <span>Account, recovery-key, VPN, and install guidance.</span>
+            </a>
+            <a class="policy-link" href="download.html">
+              <span class="number">Download</span>
+              <strong>Direct APK</strong>
+              <span>APK and update manifest links for direct distribution.</span>
+            </a>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="download-panel">
+            <div>
+              <h2>Deploy free on GitHub Pages.</h2>
+              <p>
+                Enable Pages with GitHub Actions as the source, run the existing Pages workflow,
+                and use the generated HTTPS URL for privacy policy, ad-block manifest, and update manifest.
+              </p>
+            </div>
+            <a class="button primary" href="download.html">Open download page</a>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="footer-inner">
+          <span>0x VPN is operated by Unos Pvt Ltd.</span>
+          <span><a href="privacy.html">Privacy</a> / <a href="terms.html">Terms</a> / <a href="support.html">Support</a></span>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,22 +1,22 @@
 ﻿{
     "format":  "vantage-client-updates-v1",
-    "generated_at":  "2026-06-28T16:07:33.6250862+05:30",
+    "generated_at":  "2026-06-30T18:28:19.0738242+05:30",
     "clients":  {
-                    "android":  {
-                                    "client_id":  "vantage_vpn",
-                                    "package_name":  "com.coderknight.vantagevpn",
-                                    "version_name":  "1.1.0-preview",
-                                    "version_code":  11,
-                                    "apk":  {
-                                                "url":  "android/Vantange-VPN-v1.1.apk",
-                                                "bytes":  61192806,
-                                                "sha256":  "a5b877b8885a62843885b9c5c90a08747eba51272e28fb94a36fe97200456c4e",
-                                                "release_notes":  "Vantange VPN Android 1.1"
-                                            },
-                                    "payloads":  [
+                    "com.coderknight.zeroxvpn":  {
+                                                     "client_id":  "vantage_vpn",
+                                                     "package_name":  "com.coderknight.zeroxvpn",
+                                                     "version_name":  "1.1.0-preview",
+                                                     "version_code":  11,
+                                                     "apk":  {
+                                                                 "url":  "android/0x-VPN-v1.1.apk",
+                                                                 "bytes":  100877844,
+                                                                 "sha256":  "b9d167f852fcf3be3b61e96b0e29ad55328c1efcc137d48965fbfaf844215ae0",
+                                                                 "release_notes":  "0x VPN Android 1.1"
+                                                             },
+                                                     "payloads":  [
 
-                                                 ]
-                                },
+                                                                  ]
+                                                 },
                     "pc_windows_x64":  {
                                            "status":  "manual_update_only",
                                            "folder":  "pc/windows-x64"

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Privacy Policy | 0x VPN</title>
+    <meta name="description" content="Privacy policy for 0x VPN.">
+    <link rel="icon" href="assets/0x-vpn-icon.png">
+    <link rel="stylesheet" href="assets/site.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="index.html">
+          <img src="assets/0x-vpn-icon.png" alt="" width="36" height="36">
+          <span>0x VPN</span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html#features">Features</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="support.html">Support</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="legal-page">
+      <p class="eyebrow">0x VPN legal</p>
+      <h1>Privacy Policy</h1>
+      <p class="legal-meta">Effective date: July 5, 2026</p>
+
+      <div class="notice">
+        0x VPN is operated by Unos Pvt Ltd. This policy describes the Android VPN app and related static website.
+      </div>
+
+      <h2>What 0x VPN does</h2>
+      <p>
+        0x VPN provides VPN connectivity. When connected, Android routes device network traffic through the selected
+        VPN server. Users may optionally enable hosts-based DNS ad blocking for tunneled apps. Rewarded ads may be
+        used to grant server-authorized VPN minutes.
+      </p>
+
+      <h2>Data we process</h2>
+      <ul>
+        <li>Username, account state, recovery-key authentication records, and Supabase session state.</li>
+        <li>Selected VPN location, entitlement status, VPN-minute balance, and connection status events.</li>
+        <li>Coarse country code used for country and location availability rules.</li>
+        <li>Rewarded ad transaction data needed to verify VPN-minute rewards.</li>
+        <li>App-scoped device-identity signals for fraud prevention and account-abuse review.</li>
+        <li>Android Keystore device-key proof and resettable installation credential for installation continuity and abuse review.</li>
+        <li>Google Play Integrity verdict summary when integrity checks are configured.</li>
+        <li>The client public IP address seen by the backend, transformed with a server-side keyed hash for passive abuse review.</li>
+        <li>Bounded diagnostic events with stable error codes and sanitized locations.</li>
+      </ul>
+
+      <h2>Data we do not store</h2>
+      <p>
+        We do not store browsing history, full URLs, DNS query logs, traffic payloads, packet contents, or full VPN
+        traffic logs. Raw VPN profile text is not stored in client-readable tables and is not logged by the app.
+      </p>
+
+      <h2>Device and abuse-prevention signals</h2>
+      <p>
+        The app may derive an app-scoped device hash from Widevine MediaDRM where the device allows it, otherwise from
+        Android's app-scoped Android ID. Raw identifiers remain on device. The backend applies a separate server-keyed
+        HMAC before storing links. The app does not build a fingerprint from CPU layout, display metrics, or sensor
+        inventories.
+      </p>
+      <p>
+        The app may also create a non-exportable Android Keystore signing key and use it to sign one-time backend
+        challenges. The server verifies the proof and stores only a keyed public-key fingerprint. A server-issued
+        resettable installation credential is stored encrypted in app-private storage; the server stores only its keyed
+        hash.
+      </p>
+
+      <h2>Ad blocking</h2>
+      <p>
+        When Ad-block is enabled, the app checks a hosted static manifest and may download a compact hashed-domain
+        artifact. Filtering happens locally inside the VPN tunnel. Private DNS, app-embedded encrypted DNS, direct TCP
+        DNS, first-party ads, and browser-extension-only rules may bypass DNS filtering.
+      </p>
+
+      <h2>Ads</h2>
+      <p>
+        Rewarded ads are optional and user-initiated. Ad completion is verified server-side before VPN minutes are
+        granted. Ads do not block, inject, modify, or manipulate VPN traffic.
+      </p>
+
+      <h2>Service providers</h2>
+      <ul>
+        <li>Supabase for authentication, database, Edge Functions, account, entitlement, and profile-delivery state.</li>
+        <li>Google AdMob for rewarded ads and server-side verification.</li>
+        <li>Google Play Integrity for app and device integrity verification when configured.</li>
+        <li>VPN infrastructure providers for selected VPN locations.</li>
+        <li>GitHub Pages for static website, ad-block artifacts, and optional direct update artifacts.</li>
+      </ul>
+
+      <h2>Account deletion</h2>
+      <p>
+        Users can request account deletion in the app. Deletion removes supported customer profile, device identity
+        links, reward, entitlement, session, and audit data associated with the account.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Before public release, replace this site with the final production support mailbox configured for the app.
+        The current build-time placeholder is <a href="mailto:support@example.com">support@example.com</a>.
+      </p>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span>0x VPN is operated by Unos Pvt Ltd.</span>
+        <span><a href="index.html">Home</a> / <a href="terms.html">Terms</a> / <a href="support.html">Support</a></span>
+      </div>
+    </footer>
+  </body>
+</html>
