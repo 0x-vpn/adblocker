@@ -27,7 +27,7 @@
     <main class="legal-page">
       <p class="eyebrow">0x VPN Android</p>
       <h1>Download</h1>
-      <p class="legal-meta">Current direct APK build: 1.1.3-preview, version code 14.</p>
+      <p class="legal-meta">Current direct APK build: 1.1.4-preview, version code 15.</p>
 
       <div class="notice">
         0x VPN version 12 and later checks for signed updates in-app and downloads them automatically while the VPN is
@@ -48,15 +48,16 @@
       <p>
         SHA-256 for the published APK:
       </p>
-      <p><code>7e0a89224907ef99ec68154c937e94383ca7f2755527d1cffff6743eeb7954fb</code></p>
+      <p><code>43fb979d6f7a311c6055b03b6fa58fccb433bcf9cd22a5d9c3a1cc8491af6c27</code></p>
 
       <h2>Release note</h2>
       <p>
-        Version 1.1.3 reduces the signed APK download from about 101 MB to about 13.3 MB by removing native debug
-        symbols and compressing the OpenVPN libraries. It also stages future updates in private non-purgeable storage
-        so Android cache cleanup cannot remove a download in progress. Automatic signed updates, trusted-device profile
-        protection, and fail-closed App Tunnel behavior are unchanged. Version-code-11 users still need one manual
-        matching-signature bridge install to version 12 or later. VPN-minute balances are unchanged.
+        Version 1.1.4-preview (version code 15) keeps the signed download at about 13.3 MB and now shows a clear,
+        safe reason when device verification is blocked, including rooted device, custom ROM, emulator, modified boot
+        state, non-production system, outdated app, or unofficial APK signature. Profile delivery now uses a
+        server-issued one-time Play Integrity challenge and one-time authorization receipt. Automatic signed updates,
+        fail-closed App Tunnel behavior, and VPN-minute balances are unchanged. Version-code-11 users still need one
+        manual matching-signature bridge install; version 12 and later update automatically on launch.
       </p>
     </main>
 
